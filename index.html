@@ -125,48 +125,50 @@
         </div>
 
         <!-- PANTALLA DEL JUEGO ACTIVO (CANVAS Y HUD) -->
-       <div id="game-container" class="relative w-full max-w-md h-[400px] bg-indigo-950 overflow-hidden rounded-b-3xl shadow-2xl mx-auto z-10">
-    <canvas id="gameCanvas"></canvas>
+       <div id="game-container" class="relative w-full max-w-md h-[500px] bg-indigo-950 overflow-hidden rounded-b-3xl shadow-2xl mx-auto z-10">
+   <!-- HUD Superior: Estado, Combustible y Progreso -->
+<div style="position: absolute !important; top: 10px !important; left: 50% !important; transform: translateX(-50%) !important; width: 90% !important; max-width: 380px !important; background-color: rgba(30, 27, 75, 0.85) !important; backdrop-filter: blur(4px) !important; padding: 12px !important; border-radius: 16px !important; z-index: 9999 !important; pointer-events: none !important;">
+    <!-- Línea Superior: Nivel y Score -->
+    <div class="flex justify-between items-center mb-2">
+        <div class="flex items-center gap-2 bg-indigo-900/60 border border-indigo-400/20 px-3 py-1.5 rounded-full">
+            <i class="fa-solid fa-map-location-dot text-amber-400"></i>
+            <span id="hud-station-name" class="font-kids text-sm font-semibold text-amber-200">Arca de Noé</span>
+        </div>
+        <div class="flex items-center gap-2 bg-indigo-900/60 border border-indigo-400/20 px-3 py-1.5 rounded-full">
+            <i class="fa-solid fa-star text-amber-400"></i>
+            <span id="hud-score" class="font-kids text-sm font-bold text-white">Score: 0</span>
+        </div>
+    </div>
+
+    <!-- Barra de Combustible (Fe) -->
+    <div class="space-y-1">
+        <div class="flex justify-between text-xs font-semibold">
+            <span class="text-emerald-400 flex items-center gap-1">
+                <i class="fa-solid fa-gas-pump"></i> Combustible de Fe (1% c/5s)
+            </span>
+            <span id="hud-fuel-percent" class="text-emerald-400">100%</span>
+        </div>
+        <div class="w-full bg-slate-800 rounded-full h-3 border border-slate-700 overflow-hidden">
+            <div id="fuel-bar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full w-full"></div>
+        </div>
+    </div>
+
+    <!-- Progreso del Viaje -->
+    <div class="mt-2 space-y-1">
+        <div class="flex justify-between text-xs font-semibold text-indigo-200">
+            <span>Progreso hacia la Meta</span>
+            <span id="hud-distance">0 / 1000m</span>
+        </div>
+        <div class="w-full bg-slate-800 rounded-full h-2 border border-slate-700 overflow-hidden">
+            <div id="distance-bar" class="bg-gradient-to-r from-amber-400 to-yellow-300 h-full w-0"></div>
+        </div>
+    </div>
+</div>
+           <canvas id="gameCanvas"></canvas>
 </div>
             
             <!-- HUD Superior: Estado, Combustible y Progreso -->
-<div style="position: absolute !important; top: 10px !important; left: 50% !important; transform: translateX(-50%) !important; width: 90% !important; max-width: 380px !important; background-color: rgba(30, 27, 75, 0.85) !important; backdrop-filter: blur(4px) !important; padding: 12px !important; border-radius: 16px !important; z-index: 9999 !important; pointer-events: none !important;">
-                <!-- Línea Superior: Nivel y Score -->
-                <div class="flex justify-between items-center mb-2">
-                    <div class="flex items-center gap-2 bg-indigo-900/60 border border-indigo-400/20 px-3 py-1.5 rounded-full">
-                        <i class="fa-solid fa-map-location-dot text-amber-400"></i>
-                        <span id="hud-station-name" class="font-kids text-sm font-semibold text-amber-200">Arca de Noé</span>
-                    </div>
-                    <div class="flex items-center gap-2 bg-indigo-900/60 border border-indigo-400/20 px-3 py-1.5 rounded-full">
-                        <i class="fa-solid fa-star text-amber-400"></i>
-                        <span id="hud-score" class="font-kids text-sm font-bold text-white">Score: 0</span>
-                    </div>
-                </div>
 
-                <!-- Barra de Combustible (Fe) -->
-                <div class="space-y-1">
-                    <div class="flex justify-between text-xs font-semibold">
-                        <span class="text-emerald-400 flex items-center gap-1">
-                            <i class="fa-solid fa-gas-pump"></i> Combustible de Fe (1% c/5s)
-                        </span>
-                        <span id="hud-fuel-percent" class="text-emerald-400">100%</span>
-                    </div>
-                    <div class="w-full bg-slate-800 rounded-full h-3 border border-slate-700 overflow-hidden">
-                        <div id="fuel-bar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full w-full progress-transition"></div>
-                    </div>
-                </div>
-
-                <!-- Progreso del Viaje -->
-                <div class="mt-2 space-y-1">
-                    <div class="flex justify-between text-xs font-semibold text-indigo-200">
-                        <span>Progreso hacia la Meta</span>
-                        <span id="hud-distance">0 / 1000m</span>
-                    </div>
-                    <div class="w-full bg-slate-800 rounded-full h-2 border border-slate-700 overflow-hidden">
-                        <div id="distance-bar" class="bg-gradient-to-r from-amber-400 to-yellow-300 h-full w-0 progress-transition"></div>
-                    </div>
-                </div>
-            </div>
 
             <!-- Canvas de Juego (Animación 2D del carro y la vía) -->
             <canvas id="game-canvas" class="absolute inset-0 w-full h-full bg-sky-900"></canvas>
