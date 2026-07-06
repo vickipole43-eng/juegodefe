@@ -1070,11 +1070,18 @@
                 });
             }
 
-            document.getElementById('hud-score').innerText = `Score: 0`;
-            document.getElementById('hud-station-name').innerText = stations[0].name;
+            // Parche de protección total para iniciar el viaje
+    const scoreText = document.getElementById('hud-score');
+    if (scoreText) scoreText.innerText = 'Score: 0';
+    
+    const stationText = document.getElementById('hud-station-name');
+    if (stationText && stations && stations[0]) stationText.innerText = stations[0].name;
 
-            document.getElementById('start-screen').classList.add('hidden');
-            document.getElementById('game-play-screen').classList.remove('hidden');
+    const startScreen = document.getElementById('start-screen');
+    if (startScreen) startScreen.classList.add('hidden');
+
+    const playScreen = document.getElementById('game-play-screen') || document.getElementById('game-container');
+    if (playScreen) playScreen.classList.remove('hidden');
 
             playSound('scroll');
             requestAnimationFrame(gameLoop);
