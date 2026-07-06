@@ -125,7 +125,9 @@
         </div>
 
         <!-- PANTALLA DEL JUEGO ACTIVO (CANVAS Y HUD) -->
-        <div id="game-play-screen" class="hidden absolute inset-0 z-10 flex flex-col justify-between">
+        <div id="game-container" class="relative w-full h-full min-h-[400px]">
+    <canvas id="gameCanvas"></canvas>
+</div>
             
             <!-- HUD Superior: Estado, Combustible y Progreso -->
             <div class="p-4 bg-gradient-to-b from-indigo-950/90 to-transparent z-10 pointer-events-none">
