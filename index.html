@@ -239,20 +239,83 @@
         }
 
         function drawGame() {
-            ctx.fillStyle = "#14532d"; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            const rW = canvas.width * 0.7; const rX = canvas.width * 0.15;
-            ctx.fillStyle = "#334155"; ctx.fillRect(rX, 0, rW, canvas.height);
-            ctx.fillStyle = "#facc15"; backgroundY += 4; if (backgroundY >= 40) backgroundY = 0;
-            for (let y = -40 + backgroundY; y < canvas.height; y += 40) { ctx.fillRect(canvas.width / 2 - 2, y, 4, 20); }
+            // 1. Dibujar Césped lateral (Fondo)
+            ctx.fillStyle = "#14532d"; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Auto
+            // 2. Dibujar Carretera
+            const rW = canvas.width * 0.7; 
+            const rX = canvas.width * 0.15;
+            ctx.fillStyle = "#334155"; 
+            ctx.fillRect(rX, 0, rW, canvas.height);
+            
+            // Líneas amarillas centrales en movimiento
+            ctx.fillStyle = "#facc15"; 
+            backgroundY += 4; 
+            if (backgroundY >= 40) backgroundY = 0;
+            for (let y = -40 + backgroundY; y < canvas.height; y += 40) { 
+                ctx.fillRect(canvas.width / 2 - 2, y, 4, 20); 
+            }
+            
+            // 3. ¡DIBUJAR EL CARRITO DETALLADO!
+            ctx.save();
+            ctx.translate(car.x, car.y);
+            
+            // Color base elegido por el usuario
             ctx.fillStyle = currentCarColor === 'blue' ? '#3b82f6' : currentCarColor === 'yellow' ? '#eab308' : currentCarColor === 'green' ? '#10b981' : '#ef4444';
-            ctx.fillRect(car.x, car.y, car.width, car.height);
+            ctx.beginPath();
+            ctx.roundRect(0, 0, car.width, car.height, 8); // Cuerpo del auto
+            ctx.fill();
+            
+            // Llantas (Negras)
+            ctx.fillStyle = "#0f172a";
+            ctx.fillRect(-3, 10, 4, 14);  // Delantera Izq
+            ctx.fillRect(car.width - 1, 10, 4, 14); // Delantera Der
+            ctx.fillRect(-3, 55, 4, 14);  // Trasera Izq
+            ctx.fillRect(car.width - 1, 55, 4, 14); // Trasera Der
+            
+            // Parabrisas / Ventana (Azul celeste)
+            ctx.fillStyle = "#38bdf8";
+            ctx.beginPath();
+            ctx.roundRect(5, 15, car.width - 10, 18, 4);
+            ctx.fill();
+            
+            // Luces delanteras (Amarillas brillantes)
+            ctx.fillStyle = "#fef08a";
+            ctx.fillRect(6, 0, 6, 3);
+            ctx.fillRect(car.width - 12, 0, 6, 3);
+            ctx.restore();
 
-            // Obstáculos
-            ctx.fillStyle = "#dc2626"; obstacles.forEach(o => ctx.fillRect(o.x, o.y, o.width, o.height));
-            // Pergaminos
-            ctx.fillStyle = "#fef08a"; parchments.forEach(p => ctx.fillRect(p.x, p.y, p.width, p.height));
+            // 4. ¡DIBUJAR EL PERGAMINO / BIBLIA SAGRADA!
+            parchments.forEach(p => {
+                ctx.save();
+                // Cuerpo del pergamino (Papel viejo/amarillo)
+                ctx.fillStyle = "#fef08a";
+                ctx.beginPath();
+                ctx.roundRect(p.x, p.y + 3, p.width, p.height - 6, 3);
+                ctx.fill();
+                
+                // Rodillos laterales de madera (Café)
+                ctx.fillStyle = "#b45309";
+                ctx.fillRect(p.x - 2, p.y, 4, p.height); // Rodillo izquierdo
+                ctx.fillRect(p.x + p.width - 2, p.y, 4, p.height); // Rodillo derecho
+                
+                // Cruz santa en el centro del pergamino (Roja)
+                ctx.fillStyle = "#dc2626";
+                ctx.fillRect(p.x + (p.width/2) - 2, p.y + 6, 4, p.height - 12); // Línea vertical
+                ctx.fillRect(p.x + (p.width/2) - 5, p.y + 9, 10, 3); // Línea horizontal
+                ctx.restore();
+            });
+
+            // 5. Dibujar Obstáculos (Rocas peligrosas)
+            ctx.fillStyle = "#64748b"; 
+            obstacles.forEach(o => {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(o.x + (o.width/2), o.y + (o.height/2), o.width/2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            });
         }
 
         function checkCollision(r1, r2) { return r1.x < r2.x + r2.width && r1.x + r1.width > r2.x && r1.y < r2.y + r2.height && r1.y + r1.height > r2.y; }
