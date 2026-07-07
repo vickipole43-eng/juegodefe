@@ -1653,35 +1653,5 @@
             document.addEventListener('DOMContentLoaded', init);
         }
     </script>
-   <div id="capa-publicidad" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#111; z-index:999999; display:flex; flex-direction:column; justify-content:center; align-items:center; color:#fff; font-family:Arial;">
-    <div id="bloque-boton">
-        <h2 style="margin-bottom:20px;">¡Bienvenido al Juego!</h2>
-        <button id="btn-comenzar" style="padding:15px 30px; font-size:20px; font-weight:bold; background:#2ed573; color:#fff; border:none; border-radius:5px; cursor:pointer;">EMPEZAR A JUGAR</button>
-    </div>
-    <div id="bloque-contador" style="display:none; text-align:center;">
-        <h2>Cargando el juego...</h2>
-        <div id="num-contador" style="font-size:60px; color:#ff4757; font-weight:bold; margin:20px;">10</div>
-        <p>Espera a que termine la cuenta regresiva.</p>
-    </div>
-</div>
-
-<script type='text/javascript' src='https://pl30210591.effectivecpmnetwork.com/f1/b7/ba/f1b7ba83dace68f4606ae1f73b9d8091.js'></script>
-
-<script>
-    document.getElementById('btn-comenzar').addEventListener('click', function() {
-        document.getElementById('bloque-boton').style.display = 'none';
-        document.getElementById('bloque-contador').style.display = 'block';
-        
-        let tiempo = 10;
-        let pajarito = setInterval(function() {
-            tiempo--;
-            document.getElementById('num-contador').textContent = tiempo;
-            if(tiempo <= 0) {
-                clearInterval(pajarito);
-                document.getElementById('capa-publicidad').style.display = 'none';
-            }
-        }, 1000);
-    });
-</script>
 </body>
 </html>
